@@ -2,13 +2,17 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * Regra_producao
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Regra_producaoRepository")
+ * @UniqueEntity("nombre")
  */
 class Regra_producao
 {
@@ -27,6 +31,14 @@ class Regra_producao
      * @ORM\Column(name="nivel", type="integer")
      */
     private $nivel;
+
+    /**
+     * Regra_producao constructor.
+     */
+    public function __construct()
+    {
+        $this->regraConector = new ArrayCollection();
+    }
 
 
     /**
@@ -167,4 +179,71 @@ class Regra_producao
      * })
      */
     protected $conectorConclusion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Problema", inversedBy="regras")
+     * @ORM\JoinColumn(name="id_problema", referencedColumnName="id")
+     */
+    protected $problema;
+
+    /**
+     * @return Problema
+     */
+    public function getProblema()
+    {
+        return $this->problema;
+    }
+
+    /**
+     * @param Problema $problema
+     */
+    public function setProblema(Problema $problema)
+    {
+        $this->problema = $problema;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255)
+     */
+    protected $nombre;
+
+    /**
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * @param string $nombre
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="RegraConector", mappedBy="id_regra")
+     */
+    protected $regraConector;
+
+    /**
+     * @return mixed
+     */
+    public function getRegraConector()
+    {
+        return $this->regraConector;
+    }
+
+    /**
+     * @param mixed $regraConector
+     */
+    public function setRegraConector($regraConector)
+    {
+        $this->regraConector = $regraConector;
+    }
+
 }

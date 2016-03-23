@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +56,14 @@ class Facto
      * @ORM\Column(name="valor_literal", type="string", length=255)
      */
     private $valorLiteral;
+
+    /**
+     * Facto constructor.
+     */
+    public function __construct()
+    {
+        $this->regraFacto = new ArrayCollection();
+    }
 
 
     /**
@@ -180,5 +189,26 @@ class Facto
     public function getValorLiteral()
     {
         return $this->valorLiteral;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="RegraFacto", mappedBy="id_facto")
+     */
+    protected $regraFacto;
+
+    /**
+     * @return mixed
+     */
+    public function getRegraFacto()
+    {
+        return $this->regraFacto;
+    }
+
+    /**
+     * @param mixed $regraFacto
+     */
+    public function setRegraFacto($regraFacto)
+    {
+        $this->regraFacto = $regraFacto;
     }
 }
