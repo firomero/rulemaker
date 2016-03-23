@@ -1,0 +1,20 @@
+services:
+#    app.example:
+#        class:     AppBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+#        calls:
+#            - [setService, ["@service_id"]]
+#        tags:
+#            - { name: twig.extension }
+#            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+regra_manager:
+	class: RegraManager
+	arguments: [ @doctrine.orm.entity_manager ]
+
+app.manager.facto_manager:
+	class: AppBundle\Manager\FactoManager
+	arguments: [ @doctrine.orm.entity_manager ]
+
+app.manager.conector_manager:
+	class: AppBundle\Manager\ConectorManager
+	arguments: [ @doctrine.orm.entity_manager ]

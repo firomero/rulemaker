@@ -12,4 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class Base_ConocimientoRepository extends EntityRepository
 {
+
+    public function SalvarRegra($nome_regra){
+        $em = $this->_em;
+
+    }
 }

@@ -61,4 +61,9 @@ class Base_Conocimiento
     {
         return $this->problema;
     }
+
+    public function __toString()
+    {
+      return $this->getProblema();
+    }
 }

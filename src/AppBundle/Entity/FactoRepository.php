@@ -12,4 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class FactoRepository extends EntityRepository
 {
+   public function PegarFactoRegra($id_facto){
+       return $this->_em->getRepository('AppBundle:Facto')->find($id_facto);
+   }
 }
