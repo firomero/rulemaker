@@ -14,9 +14,10 @@ use AppBundle\Entity\RegraConector;
 class RegraConectorManager extends Manager
 {
     /**
-     * @param RegraConector $facto
+     * @param RegraConector $regraConector
      * @return RegraConector
      * @throws \Exception
+     * @internal param RegraConector $facto
      */
     public function SaveFacto(RegraConector $regraConector){
         $em = $this->entityManager;

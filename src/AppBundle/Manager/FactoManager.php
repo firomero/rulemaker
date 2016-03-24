@@ -14,12 +14,12 @@ use AppBundle\Entity\Facto;
 class FactoManager extends Manager
 {
    /**
-    * @param Facto $facto
-    * @return Facto
-    * @throws \Exception
-    */
+ * @param Facto $facto
+ * @return Facto
+ * @throws \Exception
+ */
    public function SaveFacto(Facto $facto){
-       $em = $this->entityManager;
+      $em = $this->entityManager;
       try{
          $em->persist($facto);
          $em->flush();
