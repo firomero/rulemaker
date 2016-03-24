@@ -14,7 +14,9 @@ use Doctrine\ORM\EntityRepository;
 class RegraConectorRepository extends EntityRepository
 {
 
-    public function PegarIdsConectoresPremissaConclicao(Problema $problema, $idRegra, $precondicion){
+
+    public function PegarIdsFactosPremissaConclicao(Problema $problema, $idRegra, $precondicion){
+
 
         $qb = $this->createQueryBuilder('rc');
         $qb->select('rc,rp')

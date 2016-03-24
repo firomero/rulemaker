@@ -17,8 +17,11 @@ app.manager.facto_manager:
 
 app.manager.conector_manager:
 	class: AppBundle\Manager\ConectorManager
+<<<<<<< HEAD
 	arguments: [ @doctrine.orm.entity_manager ]
 
 app.model.base_conocimiento_model:
 	class: AppBundle\Model\BaseConocimientoModel
+=======
+>>>>>>> f888585958ac5d79ea1e0c1eb7c7b46434325de6
 	arguments: [ @doctrine.orm.entity_manager ]
