@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * RegraFacto
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\RegraFactoRepository")
  */
 class RegraFacto
 {
