@@ -32,12 +32,116 @@ class Regra_producao
      */
     private $nivel;
 
+    //LazyBounds
+    private $premisasCollection;
+
+    /**
+     * @return mixed
+     */
+    public function getPremisasCollection()
+    {
+        return $this->premisasCollection;
+    }
+
+    /**
+     * @param mixed $premisasCollection
+     */
+    public function setPremisasCollection($premisasCollection)
+    {
+        $this->premisasCollection = $premisasCollection;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConclusionCollection()
+    {
+        return $this->conclusionCollection;
+    }
+
+    /**
+     * @param mixed $nodoCollection
+     */
+    public function setConclusionCollection($nodoCollection)
+    {
+        $this->conclusionCollection = $nodoCollection;
+    }
+    private $conclusionCollection;
+
+
+    private $conectorPremisaCollection;
+
+    /**
+     * @return mixed
+     */
+    public function getConectorPremisaCollection()
+    {
+        return $this->conectorPremisaCollection;
+    }
+
+    /**
+     * @param mixed $conectorPremisaCollection
+     */
+    public function setConectorPremisaCollection($conectorPremisaCollection)
+    {
+        $this->conectorPremisaCollection = $conectorPremisaCollection;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConectorConclusionCollection()
+    {
+        return $this->conectorConclusionCollection;
+    }
+
+    /**
+     * @param mixed $conectorConclusionCollection
+     */
+    public function setConectorConclusionCollection($conectorConclusionCollection)
+    {
+        $this->conectorConclusionCollection = $conectorConclusionCollection;
+    }
+    private $conectorConclusionCollection;
+
     /**
      * Regra_producao constructor.
      */
     public function __construct()
     {
         $this->regraConector = new ArrayCollection();
+        $this->premisasCollection = new ArrayCollection();
+        $this->conclusionCollection = new ArrayCollection();
+        $this->conectorPremisaCollection = new ArrayCollection();
+        $this->conectorConclusionCollection = new ArrayCollection();
+    }
+
+    /**
+     * @param $premisa
+     */
+    public function AgregarPremisa($premisa){
+        $this->premisasCollection->add($premisa);
+    }
+
+    /**
+     * @param $conclusion
+     */
+    public function AgregarConlusion($conclusion){
+        $this->conclusionCollection->add($conclusion);
+    }
+
+    /**
+     * @param $conector
+     */
+    public function AgregarConectorPremisa($conector){
+        $this->conectorPremisaCollection->add($conector);
+    }
+
+    /**
+     * @param $conector
+     */
+    public function AregarConectorConclusion($conector){
+        $this->conectorConclusionCollection->add($conector);
     }
 
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>0ddd2512-3a26-4e2f-9d75-3f7daac574e6</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.facto</node>
+    <node x="345.625" y="500.0">0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_conector</node>
+    <node x="459.296875" y="304.0">0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.conector</node>
+    <node x="245.0" y="54.0">0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.problema</node>
+    <node x="56.25" y="500.0">0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_facto</node>
+    <node x="410.0" y="54.0">0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.premisas</node>
+    <node x="214.296875" y="250.0">0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_producao</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_producao" target="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.facto">
+      <point x="-75.0" y="-100.0" />
+      <point x="251.796875" y="225.0" />
+      <point x="168.75" y="225.0" />
+      <point x="56.25" y="100.0" />
+    </edge>
+    <edge source="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_producao" target="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.problema">
+      <point x="0.0" y="-100.0" />
+      <point x="326.796875" y="225.0" />
+      <point x="317.5" y="225.0" />
+      <point x="0.0" y="46.0" />
+    </edge>
+    <edge source="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_conector" target="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_producao">
+      <point x="-51.25" y="-86.5" />
+      <point x="396.875" y="475.0" />
+      <point x="383.046875" y="475.0" />
+      <point x="56.25" y="100.0" />
+    </edge>
+    <edge source="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_facto" target="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.facto">
+      <point x="-51.25" y="-86.5" />
+      <point x="107.5" y="475.0" />
+      <point x="56.25" y="475.0" />
+      <point x="-56.25" y="100.0" />
+    </edge>
+    <edge source="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_producao" target="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.premisas">
+      <point x="75.0" y="-100.0" />
+      <point x="401.796875" y="225.0" />
+      <point x="482.5" y="225.0" />
+      <point x="0.0" y="46.0" />
+    </edge>
+    <edge source="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_conector" target="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.conector">
+      <point x="51.25" y="-86.5" />
+      <point x="499.375" y="475.0" />
+      <point x="531.796875" y="475.0" />
+      <point x="0.0" y="46.0" />
+    </edge>
+    <edge source="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_facto" target="0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_producao">
+      <point x="51.25" y="-86.5" />
+      <point x="210.0" y="475.0" />
+      <point x="270.546875" y="475.0" />
+      <point x="-56.25" y="100.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="302.5" y="336.5" />
+  <SelectedNodes>
+    <node>0ddd2512-3a26-4e2f-9d75-3f7daac574e6.TABLE:ruler.regra_producao</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

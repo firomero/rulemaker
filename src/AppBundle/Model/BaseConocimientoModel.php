@@ -47,6 +47,7 @@ class BaseConocimientoModel
     {
         $this->list = array();
         $this->em = $em;
+        $this->CargarRegrasBaseDados();
 
     }
 
@@ -177,24 +178,29 @@ class BaseConocimientoModel
             foreach ($ids_factos_premissa as $p) {
                 $facto = $this->em->getRepository('AppBundle:Facto')->find($p->getFacto()->getId());
                 $regraProducao->setNodoPremisa($facto);
+                $regraProducao->AgregarPremisa($facto);
             }
             $ids_conectores_premissas = $this->em->getRepository('AppBundle:RegraConector')->PegarIdsConectoresPremissaConclicao($this->em->getRepository('AppBundle:Problema')->findOneBy(array('nombre'=>$this->problema)),$regraProblema->getId(),"pre");
             foreach ($ids_conectores_premissas as $key=>$value) {
                 $conector = $this->em->getRepository('AppBundle:Conector')->find($value->getConector()->getId());
 
                 $regraProducao->setConectorPremisa($conector);
+                $regraProducao->AgregarConectorPremisa($conector);
+                
             }
 
             $ids_factos_conclucao = $this->em->getRepository('AppBundle:RegraFacto')->PegarIdsFactoPremissaConclicao($this->em->getRepository('AppBundle:Problema')->findOneBy(array('nombre'=>$this->problema)),$regraProblema->getId(),"con");
             foreach ($ids_factos_conclucao as $p) {
                 $facto = $this->em->getRepository('AppBundle:Facto')->find($p->getFacto()->getId());
                 $regraProducao->setNodoConclusion($facto);
+                $regraProducao->AgregarConlusion($facto);
             }
             $ids_conectores_conclucao = $this->em->getRepository('AppBundle:RegraConector')->PegarIdsConectoresPremissaConclicao($this->em->getRepository('AppBundle:Problema')->findOneBy(array('nombre'=>$this->problema)),$regraProblema->getId(),"con");
             foreach ($ids_conectores_conclucao as $key=>$value) {
                 $conector = $this->em->getRepository('AppBundle:Conector')->find($value->getConector()->getId());
 
                 $regraProducao->setConectorConclusion($conector);
+                $regraProducao->AregarConectorConclusion($conector);
             }
 
             $this->list[]=$regraProducao;
@@ -202,5 +208,23 @@ class BaseConocimientoModel
         return $this->list;
 
 
+    }
+
+    /**
+     * Cantidad de regras
+     * @return mixed
+     */
+    public function CantidadReglas(){
+        return count($this->list);
+    }
+
+
+    /**
+     * Return a Regra
+     * @param $pos
+     * @return mixed
+     */
+    public function getRegra($pos){
+        return $this->list[$pos];
     }
 }
