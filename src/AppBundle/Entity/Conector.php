@@ -71,7 +71,7 @@ class Conector
     /**
      * @var string
      *
-     * @ORM\Column(name="signal", type="string", length=255)
+     * @ORM\Column(name="`signal`", type="string", length=255)
      */
     private $signal;
 

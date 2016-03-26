@@ -7,7 +7,7 @@ namespace AppBundle\Manager;
  * Date: 3/22/2016
  * Time: 2:29 PM
  */
-public abstract class Manager
+ abstract class Manager
 {
     protected $entityManager;
 

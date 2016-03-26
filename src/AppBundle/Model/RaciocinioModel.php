@@ -9,6 +9,7 @@
 namespace AppBundle\Model;
 
 
+use AppBundle\Entity\Facto;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 
@@ -46,18 +47,81 @@ class RaciocinioModel
     protected function OperadoresNosFactosPremisas($factosPreguntas, $posregra,$listaConcordacia){
         $cont_activar_regla = 0;
         $size = $this->baseConocimiento->getRegra($posregra)->getPremisasCollection();
+
         /**
          * @var ArrayCollection $size
          */
         $count = $size->count();
         for ($i=0;$i<$count;$i++) {
+            $operador = $this->baseConocimiento->getRegra($posregra)->getPremisasCollection()[$i];
+            /**
+             * @var Facto $operador
+             */
+            $literal=$operador->getValorLiteral();
+            $fOperator = $operador->getOperador();
+            $valorNumerico = $operador->getValorNumerico();
+            $currentFactoPregunta = $factosPreguntas[$i];
+            /**
+             * @var Facto $currentFactoPregunta
+             */
 
+            if ($literal=="") {
+                switch ($fOperator){
+                    case Operador::EQUAL :
+                        $cont_activar_regla = $valorNumerico==$currentFactoPregunta->getValorNumerico()?1:0;
+                        break;
+                    case Operador::LESS:
+                        $cont_activar_regla = $valorNumerico<$currentFactoPregunta->getValorNumerico()?1:0;
+                        break;
+                    case Operador::GREATER:
+                        $cont_activar_regla = $valorNumerico>$currentFactoPregunta->getValorNumerico()?1:0;
+                        break;
+
+                    //I think this out of concept, because if not equal it is different.
+                    case Operador::NOT_EQUAL:
+                        $cont_activar_regla = $valorNumerico!=$currentFactoPregunta->getValorNumerico()?1:0;
+                        break;
+                    case Operador::GREATER_EQUAL:
+                        $cont_activar_regla = $valorNumerico>=$currentFactoPregunta->getValorNumerico()?1:0;
+                        break;
+                    case Operador::LESS_EQUAL:
+                        $cont_activar_regla = $valorNumerico<=$currentFactoPregunta->getValorNumerico()?1:0;
+                        break;
+                    default:
+                        break;
+
+                }
+    
+            }
+            else{
+                switch ($fOperator){
+                    case Operador::EQUAL:
+                        $cont_activar_regla = $literal==$currentFactoPregunta->getValorLiteral()?1:0;
+                        break;
+                    case Operador::NOT_EQUAL:
+                        $cont_activar_regla = $literal!=$currentFactoPregunta->getValorLiteral()?1:0;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            $listaConcordacia[]=$cont_activar_regla;
+            $cont_activar_regla = 0;
         }
+        
+        return $listaConcordacia;
 
     }
 
 
-    protected function ConectoresLogicos($activarRegla,array $concordancia, $posregra){
+    /**
+     * @param $activarRegla
+     * @param array $concordancia
+     * @param $posregra
+     * @return int|mixed
+     */
+    protected function ConectoresLogicos($activarRegla, array $concordancia, $posregra){
         $size = $this->baseConocimiento->getRegra($posregra)->getConectorPremisaCollection()->count();
         if ($size>0) {
             $activarRegla = $concordancia[0];
