@@ -42,6 +42,23 @@ class RaciocinioModel
         $concordancia = array();
         $activarRegla = 0;
         $cantidad = $this->baseConocimiento->CantidadReglas();
+        for ($i=0;$i<$cantidad;$i++) {
+            $concordancia = $this->OperadoresNosFactosPremisas($factos,$i,$concordancia);
+            $activarRegla = $this->ConectoresLogicos($activarRegla,$concordancia,$i);
+            if ($activarRegla!=0) {
+                $size = $this->baseConocimiento->getRegra($i)->getConclusionCollection()->count();
+                /**
+                 * @var ArrayCollection $cnR
+                 */
+                $cnR =$this->baseConocimiento->getRegra($i)->getConclusionCollection();
+                for ($k = 0;$k<$size;$k++) {
+                    $nodo = $cnR->get($k);
+                    $conclusion[]=$nodo;
+                    $factos[]=$nodo;
+                }
+            }
+        }
+        return $conclusion;
     }
 
     protected function OperadoresNosFactosPremisas($factosPreguntas, $posregra,$listaConcordacia){
