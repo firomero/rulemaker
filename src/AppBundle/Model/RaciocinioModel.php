@@ -26,8 +26,8 @@ class RaciocinioModel
      */
     public function __construct($problema,EntityManager $em)
     {
-        $this->baseConocimiento = new BaseConocimientoModel($em);
-        $this->baseConocimiento->setProblema($problema);
+        $this->baseConocimiento = new BaseConocimientoModel($problema,$em);
+//        $this->baseConocimiento->setProblema($problema);
         $this->em = $em;
 
     }

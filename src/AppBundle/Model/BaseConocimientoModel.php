@@ -43,10 +43,11 @@ class BaseConocimientoModel
      * BaseConocimientoModel constructor.
      * @param $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct($problema,EntityManager $em)
     {
         $this->list = array();
         $this->em = $em;
+        $this->problema = $problema;
         $this->CargarRegrasBaseDados();
 
     }
