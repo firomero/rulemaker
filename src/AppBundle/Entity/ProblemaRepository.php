@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -28,7 +29,7 @@ class ProblemaRepository extends EntityRepository
         'nombre'=>$problema
     ));
         if ($problema==null) {
-            throw new NoResultException("No hay problemas definidos");
+            return new ArrayCollection();
         }   
         
 

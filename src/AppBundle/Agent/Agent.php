@@ -24,7 +24,13 @@ trait Agent
      * @return mixed
      */
     public function SampleOuput($name, $em){
-        $raciocinio = new RaciocinioModel($name,$em);
+        try{
+
+            $raciocinio = new RaciocinioModel($name,$em);
+        }
+        catch (\Exception $e){
+
+        }
         $lval = array();
         $lcon = array();
         $lvariavles_pre1 = array();
@@ -38,9 +44,9 @@ trait Agent
         $lconectores_con1 = array();
         $lvariavles_pre1[]="estancia do producto";
         $lopredores_pre1[]=Operador::GREATER;
-        $lvalor_con1[]=40;
+        $lvalor_pre1[]=40;
         $lnumerico_o_literal_pre1[]=Type::NUMERICO;
-        $lvariavles_pre1[]="alerta";
+        $lvariavles_con1[]="alerta";
         $lopredores_con1[]=Operador::EQUAL;
         $lvalor_con1[]="producto em risco";
         $ni=1;

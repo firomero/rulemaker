@@ -31,12 +31,7 @@ class RegraConector
      */
     private $id;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="orden_regra", type="integer")
-     */
-    protected $ordenRegra;
+   
 
     /**
      * @return int
@@ -47,21 +42,7 @@ class RegraConector
     }
 
 
-    /**
-     * @return int
-     */
-    public function getOrdenRegra()
-    {
-        return $this->ordenRegra;
-    }
-
-    /**
-     * @param int $ordenRegra
-     */
-    public function setOrdenRegra($ordenRegra)
-    {
-        $this->ordenRegra = $ordenRegra;
-    }
+   
 
     /**
      * @return string

@@ -11,6 +11,7 @@ namespace AppBundle\Model;
 
 use AppBundle\Entity\Conector;
 use AppBundle\Entity\Facto;
+use AppBundle\Entity\Problema;
 use AppBundle\Entity\Regra_producao;
 use AppBundle\Entity\RegraConector;
 use AppBundle\Entity\RegraFacto;
@@ -22,6 +23,7 @@ class BaseConocimientoModel
     protected $list;
     protected $em;
     protected $problema;
+    protected $problemaEntity;
 
     /**
      * @return mixed
@@ -48,6 +50,26 @@ class BaseConocimientoModel
         $this->list = array();
         $this->em = $em;
         $this->problema = $problema;
+        try{
+
+            $problemaEntity = new Problema();
+            $problemaEntity->setNombre($problema);
+            $em->persist($problemaEntity);
+            $em->flush();
+            $this->problemaEntity  = $problemaEntity;
+        }
+        catch (\Exception $e){
+           try{
+
+               $this->problemaEntity=$em->getRepository('AppBundle:Premisas')->findOneBy(
+                   array('nombre'=>$problema)
+               );
+           }
+           catch (\Exception $e){
+               throw $e;
+           }
+        }
+
         $this->CargarRegrasBaseDados();
 
     }
@@ -69,6 +91,7 @@ class BaseConocimientoModel
         $em = $this->em;
         $regra = new Regra_producao();
         $regra->setNombre("R".count($this->list));
+        $regra->setProblema($this->problemaEntity);
         //beginTrans
         $em->beginTransaction();
         $em->persist($regra);
@@ -137,14 +160,18 @@ class BaseConocimientoModel
 
 
             $regra->setNivel($ni);
-            $contador =array_reduce($this->list,function($a,$b)use($ni){
-                if ($b instanceof Regra_producao) {
-                    if ($b->getNivel()==$ni) {
-                        $a++;
-                    }
-                }
-                return $a;
-            });
+//            $contador =array_reduce($this->list,function($a,$b)use($ni){
+//                if ($b instanceof Regra_producao) {
+//                    if ($b->getNivel()==$ni) {
+//                        $a=$a+1;
+//                    }
+//                }
+//                return $a;
+//            });
+
+            $contador = count(array_filter($this->list,function($iter)use($ni){
+                return $iter instanceof Regra_producao && $iter->getNivel()==$ni;
+            }));
 
             $this->list[$contador]=$regra;
 

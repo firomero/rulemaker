@@ -28,7 +28,7 @@ class RegraFacto
     /**
      * @var integer
      *
-     * @ORM\Column(name="orden_regra", type="integer")
+     * @ORM\Column(name="orden_regra", type="integer", nullable=true)
      */
     protected $ordenRegra;
 
