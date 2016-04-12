@@ -145,7 +145,7 @@ class RaciocinioModel
             $activarRegla = $concordancia[0];
             $bandeira = false;
             for ($i = 0;$i<$size;$i++) {
-                if ($this->baseConocimiento->getRegra($posregra)->getPremisasCollection()->get($i)=="e") {
+                if ($this->baseConocimiento->getRegra($posregra)->getPremisasCollection()->get($i)->getPremisas()=="e") {
                     if ($bandeira) {
                         $activarRegla*=$concordancia[$i]*$concordancia[$i+1];
                     } else {
@@ -155,7 +155,7 @@ class RaciocinioModel
                 }
 
 
-                if ($this->baseConocimiento->getRegra($posregra)->getPremisasCollection()->get($i)=="ou") {
+                if ($this->baseConocimiento->getRegra($posregra)->getPremisasCollection()->get($i)->getPremisas()=="ou") {
                         $activarRegla+=$concordancia[$i]+$concordancia[$i+1];
                     if ($activarRegla!=0) {
                         $bandeira = true;

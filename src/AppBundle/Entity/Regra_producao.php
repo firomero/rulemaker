@@ -51,6 +51,7 @@ class Regra_producao
          * @var RegraConector $conector
          */
         if ($conector->getPremisas()==ModelType::PREMISA) {
+            
             $premisas->add($conector);
         }
     }
@@ -125,7 +126,22 @@ class Regra_producao
      */
     public function getConectorPremisaCollection()
     {
-        return $this->conectorPremisaCollection;
+        
+        /**
+         * @var ArrayCollection $premisas
+         */
+        $premisas = $this->premisasCollection;
+        $premisas->clear();
+        foreach ($this->regraConector as $conector) {
+            /**
+             * @var RegraConector $conector
+             */
+            if ($conector->getPremisas() == ModelType::PREMISA) {
+                $premisas->add($conector);
+            }
+        }
+        
+        return $premisas;
     }
 
     /**
