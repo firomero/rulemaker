@@ -11,6 +11,7 @@ namespace AppBundle\Model;
 
 use AppBundle\Entity\Conector;
 use AppBundle\Entity\Facto;
+use AppBundle\Entity\Premisas;
 use AppBundle\Entity\Problema;
 use AppBundle\Entity\Regra_producao;
 use AppBundle\Entity\RegraConector;
@@ -61,7 +62,7 @@ class BaseConocimientoModel
         catch (\Exception $e){
            try{
 
-               $this->problemaEntity=$em->getRepository('AppBundle:Premisas')->findOneBy(
+               $this->problemaEntity=$em->getRepository('AppBundle:Problema')->findOneBy(
                    array('nombre'=>$problema)
                );
            }
@@ -111,16 +112,23 @@ class BaseConocimientoModel
             $regraFacto = new RegraFacto();
             $regraFacto->setFacto($facto);
             $regraFacto->setPremisas("pre");
+            $premisa = new Premisas();
+            $premisa->setPremisas($regraFacto->getPremisas());
             $regraFacto->setRegra($regra);
             $em->persist($regraFacto);
+            $em->persist($premisa);
+            $regra->AgregarRegraFacto($regraFacto);
+            
             if ($key<count($lis_conectores_pre)) {
                 $regra->setRegraConector($lis_conectores_pre[$key]);
                 $conector = new Conector();
                 $conector->setSignal($lis_conectores_pre[$key]);
+                $regra->AgregarConectorPremisa($conector);
                 $regraConector = new RegraConector();
                 $regraConector->setRegra($regra);
                 $regraConector->setConector($conector);
                 $regraConector->setPremisas("pre");
+                $regra->AgregarRegraConector($regraConector);
                 $em->persist($conector);
                 $em->persist($regraConector);
             }
@@ -145,6 +153,8 @@ class BaseConocimientoModel
             $regraFacto->setPremisas("con");
             $regraFacto->setRegra($regra);
             $regraFacto->setFacto($facto);
+            $em->persist($regraFacto);
+            $regra->AgregarRegraFacto($regraFacto);
             if ($key<count($lis_conectores_con)) {
                 $regra->setConectorConclusion($lis_conectores_con[$key]);
                 $conector = new Conector();
@@ -155,6 +165,7 @@ class BaseConocimientoModel
                 $regraConector->setPremisas("con");
                 $em->persist($conector);
                 $em->persist($regraConector);
+                $regra->AgregarRegraConector($regraConector);
 
             }
 
@@ -176,8 +187,8 @@ class BaseConocimientoModel
             $this->list[$contador]=$regra;
 
             $em->persist($facto);
-            $em->persist($regra);
             $em->persist($regraFacto);
+            $em->persist($regra);
 
         }
 
@@ -187,6 +198,7 @@ class BaseConocimientoModel
        }
        catch (\Exception $e){
            $em->rollback();
+           throw $e;
        }
 
     }

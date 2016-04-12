@@ -15,13 +15,18 @@ class RegraFactoRepository extends EntityRepository
 {
     public function PegarIdsFactoPremissaConclicao(Problema $problema, $idRegra, $precondicion){
 
-        $qb = $this->createQueryBuilder('rc');
-        $qb->select('rc,rp')
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('rc','c')
             ->from('AppBundle:RegraFacto','rc')
-            ->leftJoin('AppBundle:Regra_producao','rp',\Doctrine\ORM\Query\Expr\Join::WITH,'rc.regra.id=rp.id')
-            ->where($qb->expr()->eq('rp.problema.id',$problema->getId()))
-            ->andWhere($qb->expr()->eq('rc.regra.id',$idRegra))
-            ->andWhere($qb->expr()->like('rc.premisa',$precondicion));
+            ->join('rc.regra','r')
+            ->where($qb->expr()->eq('r.problema.id',':problema'))
+            ->andWhere($qb->expr()->eq('r.id',':regra'))
+            ->andWhere($qb->expr()->like('rc.premisas',':premisa'))
+            ->setParameter('problema',$problema->getId())
+            ->setParameter('regra',$idRegra)
+            ->setParameter('premisa',$precondicion)
+        ;
+
         return $qb->getQuery()->getResult();
 
 

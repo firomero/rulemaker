@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\ModelType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -36,11 +37,36 @@ class Regra_producao
     private $premisasCollection;
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getPremisasCollection()
     {
-        return $this->premisasCollection;
+        /**
+         * @var ArrayCollection $premisas
+         */
+        $premisas = $this->premisasCollection;
+        $premisas->clear();
+        foreach ($this->regraConector as $conector){
+        /**
+         * @var RegraConector $conector
+         */
+        if ($conector->getPremisas()==ModelType::PREMISA) {
+            $premisas->add($conector);
+        }
+    }
+
+        foreach ($this->regraFacto as $conector){
+            /**
+             * @var RegraFacto $conector
+             */
+            if ($conector->getPremisas()==ModelType::PREMISA) {
+                $premisas->add($conector);
+            }
+        }
+
+        return $premisas;
+        
+
     }
 
     /**
@@ -64,7 +90,30 @@ class Regra_producao
      */
     public function setConclusionCollection($nodoCollection)
     {
-        $this->conclusionCollection = $nodoCollection;
+        /**
+         * @var ArrayCollection $premisas
+         */
+        $premisas = $this->premisasCollection;
+        $premisas->clear();
+        foreach ($this->regraConector as $conector){
+            /**
+             * @var RegraConector $conector
+             */
+            if ($conector->getPremisas()==ModelType::CONCLUSION) {
+                $premisas->add($conector);
+            }
+        }
+
+        foreach ($this->regraFacto as $conector){
+            /**
+             * @var RegraFacto $conector
+             */
+            if ($conector->getPremisas()==ModelType::CONCLUSION) {
+                $premisas->add($conector);
+            }
+        }
+
+        return $premisas;
     }
     private $conclusionCollection;
 
@@ -110,6 +159,7 @@ class Regra_producao
     public function __construct()
     {
         $this->regraConector = new ArrayCollection();
+        $this->regraFacto = new ArrayCollection();
         $this->premisasCollection = new ArrayCollection();
         $this->conclusionCollection = new ArrayCollection();
         $this->conectorPremisaCollection = new ArrayCollection();
@@ -124,6 +174,23 @@ class Regra_producao
     }
 
     /**
+     * @param $premisa
+     */
+    public function AgregarRegraFacto($premisa){
+        $this->premisasCollection->add($premisa);
+        $this->regraFacto->add($premisa);
+//        $this->regraConector->add($premisa);
+    }
+
+    /**
+     * @param $premisa
+     */
+    public function AgregarRegraConector($premisa){
+        $this->premisasCollection->add($premisa);      
+        $this->regraConector->add($premisa);
+    }
+
+    /**
      * @param $conclusion
      */
     public function AgregarConlusion($conclusion){
@@ -134,7 +201,7 @@ class Regra_producao
      * @param $conector
      */
     public function AgregarConectorPremisa($conector){
-        $this->conectorPremisaCollection->add($conector);
+        $this->regraFacto->add($conector);
     }
 
     /**
@@ -332,7 +399,28 @@ class Regra_producao
     /**
      * @ORM\OneToMany(targetEntity="RegraConector", mappedBy="id_regra")
      */
-    protected $regraConector;
+    protected $regraConector; 
+    
+    /**
+     * @ORM\OneToMany(targetEntity="RegraFacto", mappedBy="id_regra")
+     */
+    protected $regraFacto;
+
+    /**
+     * @return mixed
+     */
+    public function getRegraFacto()
+    {
+        return $this->regraFacto;
+    }
+
+    /**
+     * @param mixed $regraFacto
+     */
+    public function setRegraFacto($regraFacto)
+    {
+        $this->regraFacto = $regraFacto;
+    }
 
     /**
      * @return mixed

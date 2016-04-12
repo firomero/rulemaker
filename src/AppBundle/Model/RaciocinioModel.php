@@ -71,6 +71,7 @@ class RaciocinioModel
         $count = $size->count();
         for ($i=0;$i<$count;$i++) {
             $operador = $this->baseConocimiento->getRegra($posregra)->getPremisasCollection()[$i];
+            $operador = $operador->getFacto();
             /**
              * @var Facto $operador
              */

@@ -29,6 +29,7 @@ trait Agent
             $raciocinio = new RaciocinioModel($name,$em);
         }
         catch (\Exception $e){
+            throw $e;
 
         }
         $lval = array();
